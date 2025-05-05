@@ -11,8 +11,6 @@ class JournalController extends GetxController with GetTickerProviderStateMixin 
 
   final forward = true.obs;
   final entries = <Map<String, dynamic>>[].obs;
-
-  // Loading state
   final isLoading = false.obs;
 
   final JournalService _journalService = JournalService();
@@ -32,7 +30,7 @@ class JournalController extends GetxController with GetTickerProviderStateMixin 
     );
     _setAnimation();
     animationController.forward();
-    loadJournalEntries(uid);
+    loadJournalEntry(uid);
   }
 
   void _setAnimation() {
@@ -49,40 +47,55 @@ class JournalController extends GetxController with GetTickerProviderStateMixin 
     _setAnimation();
     animationController.reset();
 
-    currentMonth.value = DateTime(currentMonth.value.year, currentMonth.value.month + delta);
-    selectedDate.value = DateTime(currentMonth.value.year, currentMonth.value.month, 1);
+    currentMonth.value = DateTime(
+      currentMonth.value.year,
+      currentMonth.value.month + delta,
+    );
+    selectedDate.value = DateTime(
+      currentMonth.value.year,
+      currentMonth.value.month,
+      1,
+    );
 
     animationController.forward();
-    loadJournalEntries(uid);
+    loadJournalEntry(uid);
   }
 
   void changeSelectedDate(DateTime date, String uid) {
     selectedDate.value = date;
-    loadJournalEntries(uid);
+    loadJournalEntry(uid);
   }
 
-  Future<void> loadJournalEntries(String uid) async {
-    isLoading.value = true; // Show loading indicator
+  Future<void> loadJournalEntry(String uid) async {
+    isLoading.value = true;
     try {
       entries.clear();
-      final fetched = await _journalService.getJournalEntriesForDate(uid, selectedDate.value);
-      entries.assignAll(fetched);
+      final entry = await _journalService.getJournalEntry(uid, selectedDate.value);
+      if (entry != null) {
+        entries.add(entry);
+      }
     } catch (e) {
-      Get.snackbar('Error', 'Failed to load journal entries', snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar('Error', 'Failed to load journal entry', snackPosition: SnackPosition.BOTTOM);
     } finally {
-      isLoading.value = false; // Hide loading indicator
+      isLoading.value = false;
     }
   }
 
-  Future<void> addJournalEntry(String uid, String title, String description) async {
-    isLoading.value = true; // Show loading indicator
+  Future<void> addOrUpdateJournalEntry(
+      String uid, String title, String description) async {
+    isLoading.value = true;
     try {
-      await _journalService.addJournalEntry(uid, selectedDate.value, title, description);
-      await loadJournalEntries(uid); // Refresh after adding
+      await _journalService.addOrUpdateJournalEntry(
+        uid,
+        selectedDate.value,
+        title,
+        description,
+      );
+      await loadJournalEntry(uid);
     } catch (e) {
-      Get.snackbar('Error', 'Failed to add journal entry', snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar('Error', 'Failed to save journal entry', snackPosition: SnackPosition.BOTTOM);
     } finally {
-      isLoading.value = false; // Hide loading indicator
+      isLoading.value = false;
     }
   }
 

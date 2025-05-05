@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controllers/journal_controller.dart'; // Ensure the correct import
+import '../controllers/journal_controller.dart';
 
 class AddJournal extends StatefulWidget {
-  const AddJournal({super.key});
+  final String uid;
+  const AddJournal({super.key, required this.uid});
 
   @override
   _AddJournalState createState() => _AddJournalState();
@@ -14,7 +15,13 @@ class _AddJournalState extends State<AddJournal> {
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  final JournalController journalController = Get.find(); // Get the controller instance
+  late final JournalController journalController;
+
+  @override
+  void initState() {
+    super.initState();
+    journalController = Get.find<JournalController>();
+  }
 
   @override
   void dispose() {
@@ -27,7 +34,8 @@ class _AddJournalState extends State<AddJournal> {
   Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: Colors.transparent,
-      insetPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+      insetPadding:
+      const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
       child: ConstrainedBox(
         constraints: BoxConstraints(
           maxHeight: MediaQuery.of(context).size.height * 0.6,
@@ -74,9 +82,7 @@ class _AddJournalState extends State<AddJournal> {
               ),
               const SizedBox(height: 24),
               ElevatedButton.icon(
-                onPressed: () {
-                  _saveJournalEntry(); // Call the save function
-                },
+                onPressed: _saveJournalEntry,
                 icon: const Icon(Icons.check, color: Colors.white),
                 label: const Text(
                   'Save',
@@ -84,7 +90,8 @@ class _AddJournalState extends State<AddJournal> {
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue.shade700,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  padding:
+                  const EdgeInsets.symmetric(vertical: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -101,15 +108,28 @@ class _AddJournalState extends State<AddJournal> {
     final title = titleController.text.trim();
     final description = descriptionController.text.trim();
 
-    if (title.isNotEmpty && description.isNotEmpty) {
-      try {
-        await journalController.addJournalEntry('userId', title, description); // Save entry
-        Get.back(); // Close the dialog
-      } catch (e) {
-        Get.snackbar('Error', 'Failed to save journal entry', snackPosition: SnackPosition.BOTTOM);
-      }
-    } else {
-      Get.snackbar('Error', 'Title and description cannot be empty', snackPosition: SnackPosition.BOTTOM);
+    if (title.isEmpty || description.isEmpty) {
+      Get.snackbar(
+        'Error',
+        'Title and description cannot be empty',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return;
+    }
+
+    try {
+      await journalController.addOrUpdateJournalEntry(
+        widget.uid,
+        title,
+        description,
+      );
+      Get.back();
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'Failed to save journal entry',
+        snackPosition: SnackPosition.BOTTOM,
+      );
     }
   }
 
@@ -139,7 +159,8 @@ class _AddJournalState extends State<AddJournal> {
           borderSide: BorderSide(color: Colors.blue.shade700),
         ),
       ),
-      keyboardType: maxLines > 1 ? TextInputType.multiline : TextInputType.text,
+      keyboardType:
+      maxLines > 1 ? TextInputType.multiline : TextInputType.text,
     );
   }
 }
