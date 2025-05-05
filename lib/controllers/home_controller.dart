@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:o3d/o3d.dart';
+
+import '../routes/app_routes.dart';
 
 class HomeController extends GetxController {
   final PageController textsPageController = PageController();
@@ -51,5 +54,9 @@ class HomeController extends GetxController {
     textsPageController.dispose();
     mainPageController.dispose();
     super.onClose();
+  }
+  void logout() async{
+    await FirebaseAuth.instance.signOut();
+    Get.offAllNamed(AppRoutes.login);
   }
 }

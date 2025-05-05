@@ -54,7 +54,7 @@ class RegisterController extends GetxController {
     }
 
     if (gender != 'Male' && gender != 'Female' && gender != 'male' && gender !='female' ) {
-      Get.snackbar("Error", "Passwords do not match");
+      Get.snackbar("Error", "Gender has to be either Male or Female");
       return;
     } if (password != confirmPassword) {
       Get.snackbar("Error", "Passwords do not match");

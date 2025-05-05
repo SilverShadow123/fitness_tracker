@@ -13,7 +13,7 @@ class RegisterScreen extends GetView {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.indigo,
+      backgroundColor: Colors.blue.shade100,
       body: SingleChildScrollView(
         child: Center(
           child: Padding(

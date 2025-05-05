@@ -1,4 +1,7 @@
+
 import 'package:get/get.dart';
+
+
 
 class ProfileController extends GetxController {
   var name = 'Dis'.obs;
@@ -7,6 +10,9 @@ class ProfileController extends GetxController {
   var height = 175.0.obs;  // cm
   var status = 'Active'.obs;
   var history = 'Latest'.obs;
+
+
+
 
   // Function to update profile
   void updateProfile(String newName, int newAge, double newWeight, double newHeight, String newStatus) {

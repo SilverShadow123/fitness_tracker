@@ -1,4 +1,5 @@
 
+import 'package:fitness_tracker/controllers/daily_goal_controller.dart';
 import 'package:fitness_tracker/widgets/add_goals_set_sleep_water.dart';
 import 'package:fitness_tracker/widgets/o3d_viewer.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import '../widgets/profile_widget.dart';
 class HomeScreen extends GetView<HomeController> {
    HomeScreen({super.key});
 final StepCalculationController stepCalculationController = Get.find<StepCalculationController>();
+final DailyGoalsController dailyGoalsController = Get.find<DailyGoalsController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,6 +73,7 @@ final StepCalculationController stepCalculationController = Get.find<StepCalcula
                                   context: context,
                                   builder: (context) => const AddGoalsSetSleepWater(),
                                 );
+                                dailyGoalsController.resetGoals();
                               },
 
                               child: Icon(
@@ -96,7 +99,9 @@ final StepCalculationController stepCalculationController = Get.find<StepCalcula
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 48.0, horizontal: 16.0),
                     child: GestureDetector(
-                      onTap:(){},
+                      onTap:(){
+                        controller.logout();
+                      },
                       child: Icon(
                         Icons.logout,
                         color: Colors.red[800],

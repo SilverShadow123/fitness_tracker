@@ -73,6 +73,38 @@ class FirestoreService {
     }
   }
 
+  //update health entry
+ Future<void> updateHealthEntry(
+      String uid,
+      String entryId, {
+        double? calories,
+        double? targetsleep,
+        double? targetwater,
+        double? steps,
+        double? bmi,
+        double? todaysleep,
+        double? todaywater,
+        String? entry,
+        String? description,
+      }) async {
+    final data = <String, dynamic>{
+      if (calories    != null) 'calories':    calories,
+      if (targetsleep != null) 'targetsleep': targetsleep,
+      if (targetwater != null) 'targetwater': targetwater,
+      if (steps       != null) 'steps':       steps,
+      if (bmi         != null) 'bmi':         bmi,
+      if (todaysleep  != null) 'todaysleep':  todaysleep,
+      if (todaywater  != null) 'todaywater':  todaywater,
+      'entry':       entry ?? '',
+      'description': description ?? '',
+    };
+
+    try {
+      await _healthCol(uid).doc(entryId).update(data);
+    } catch (e) {
+      throw Exception('Error updating health entry: $e');
+    }
+  }
   /// Stream all health entries for a user, ordered by creation time desc
   Stream<QuerySnapshot<Map<String, dynamic>>> streamHealthEntries(String uid) {
     return _healthCol(uid)

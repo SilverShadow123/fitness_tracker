@@ -42,4 +42,23 @@ class DailyGoalsController extends GetxController {
       }
     });
   }
+
+  /// Reset all goals to zero by adding a new entry to Firestore
+  void resetGoals() async {
+    if (uid.isEmpty) return;
+
+    final goalRef = FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('healthData');
+
+    await goalRef.add({
+      'calories': 0,
+      'steps': 0,
+      'sleepHours': 0,
+      'waterIntake': 0,
+      'bmi': 0,
+      'createdAt': FieldValue.serverTimestamp(),
+    });
+  }
 }
