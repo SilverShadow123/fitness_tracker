@@ -1,50 +1,56 @@
-import 'package:fitness_tracker/controllers/step_calculation_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import '../firebase/service/fireservice.dart';
+import 'step_calculation_controller.dart';
 
 class HealthCalculationController extends GetxController {
-
   final StepCalculationController stepController = Get.find<StepCalculationController>();
+  final FirestoreService firestoreService = Get.find<FirestoreService>();
 
   RxDouble bmi = 0.0.obs;
   RxDouble calories = 0.0.obs;
-  RxDouble waterIntake = 0.0.obs; // in milliliters
-  RxInt sleepHours = 0.obs; // in hours
+  RxDouble waterIntake = 0.0.obs;
+  RxInt sleepHours = 0.obs;
 
-  // Calculate BMI based on weight and height
+  RxDouble weight = 0.0.obs;
+  RxDouble height = 0.0.obs;
+
+  String get uid => FirebaseAuth.instance.currentUser?.uid ?? '';
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchUserDataAndCalculate();
+  }
+
+  Future<void> fetchUserDataAndCalculate() async {
+    if (uid.isEmpty) return;
+
+    final profile = await firestoreService.getUserProfile(uid);
+    if (profile != null) {
+      weight.value = (profile['weight'] ?? 0.0).toDouble();
+      height.value = (profile['height'] ?? 0.0).toDouble();
+
+      calculateBMI(weight.value, height.value);
+      calculateCalories();
+    }
+  }
+
   void calculateBMI(double weight, double height) {
     if (weight > 0 && height > 0) {
-      bmi.value = weight / (height * height); // BMI formula: weight(kg) / height(m)^2
+      bmi.value = weight / (height * height);
     } else {
-      bmi.value = 0.0;  // Handle invalid input
+      bmi.value = 0.0;
     }
   }
 
-  // Calculate calories burned based on steps and weight
   void calculateCalories() {
-    double weight = 68.5; // Example weight in kg
-    if (weight > 0 && stepController.stepCount.value >= 0) {
-      calories.value = stepController.stepCount.value * weight * 0.04; // Basic formula for calories burned
+    if (weight.value > 0 && stepController.stepCount.value >= 0) {
+      calories.value = stepController.stepCount.value * weight.value * 0.04;
     } else {
-      calories.value = 0.0;  // Handle invalid input
+      calories.value = 0.0;
     }
   }
 
-  // Calculate daily water intake (30-35 ml per kg of body weight)
-  void calculateWaterIntake(double weight) {
-    if (weight > 0) {
-      waterIntake.value = weight * 30; // Minimum water intake (in ml)
-      // waterIntake.value = weight * 35; // For higher intake
-    } else {
-      waterIntake.value = 0.0;  // Handle invalid input
-    }
-  }
 
-  // Set the number of hours of sleep
-  void setSleepHours(int hours) {
-    if (hours >= 0) {
-      sleepHours.value = hours;
-    } else {
-      sleepHours.value = 0; // Handle invalid input
-    }
-  }
 }

@@ -43,7 +43,7 @@ Future<void> setGoals(String steps,String calories,String targetSleep,String wat
       return;
     }
     try {
-      await _firestoreService.addHealthEntry(
+      await _firestoreService.addOrSetDailyGoal(
         uid,
         calories: double.parse(calories),
         targetsleep: double.parse(targetSleep),

@@ -1,40 +1,35 @@
 class DailyGoalModel {
-  final int calories;
-  final int caloriesConsumed;
-  final int steps;
-  final int stepsTaken;
-  final double bmiGoal;
-  final double bmiCurrent;
-  final int sleepGoal;
-  final int sleepTaken;
-  final int waterGoal;
-  final int waterTaken;
+  final double? calories;
+  final double? steps;
+  final double? sleepGoal;
+  final double? waterGoal;
+  final double? bmiGoal;
 
   DailyGoalModel({
-    required this.calories,
-    required this.caloriesConsumed,
-    required this.steps,
-    required this.stepsTaken,
-    required this.bmiGoal,
-    required this.bmiCurrent,
-    required this.sleepGoal,
-    required this.sleepTaken,
-    required this.waterGoal,
-    required this.waterTaken,
+    this.calories,
+    this.steps,
+    this.sleepGoal,
+    this.waterGoal,
+    this.bmiGoal,
   });
 
   factory DailyGoalModel.fromMap(Map<String, dynamic> map) {
     return DailyGoalModel(
-      calories: map['caloriesGoal'] ?? 2000,
-      caloriesConsumed: map['caloriesConsumed'] ?? 1500,
-      steps: map['stepsGoal'] ?? 10000,
-      stepsTaken: map['stepsTaken'] ?? 6000,
-      bmiGoal: (map['bmiGoal'] ?? 22.5).toDouble(),
-      bmiCurrent: (map['currentBmi'] ?? 23.0).toDouble(),
-      sleepGoal: map['sleepGoal'] ?? 8,
-      sleepTaken: map['sleepTaken'] ?? 4,
-      waterGoal: map['waterGoal'] ?? 2000,
-      waterTaken: map['waterTaken'] ?? 800,
+      calories: (map['calories'] ?? 0).toDouble(),
+      steps: (map['steps'] ?? 0).toDouble(),
+      sleepGoal: (map['targetsleep'] ?? 0).toDouble(),
+      waterGoal: (map['targetwater'] ?? 0).toDouble(),
+      bmiGoal: (map['bmi'] ?? 0).toDouble(),
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'calories': calories,
+      'steps': steps,
+      'targetsleep': sleepGoal,
+      'targetwater': waterGoal,
+      'bmi': bmiGoal,
+    };
   }
 }

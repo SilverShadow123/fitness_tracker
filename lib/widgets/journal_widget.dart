@@ -19,7 +19,7 @@ class _JournalWidgetState extends State<JournalWidget> with TickerProviderStateM
   @override
   void initState() {
     super.initState();
-    controller.initController(this);
+    controller.initController(this, 'userId'); // Replace 'userId' with the actual user ID
   }
 
   @override
@@ -43,13 +43,13 @@ class _JournalWidgetState extends State<JournalWidget> with TickerProviderStateM
               border: Border.all(color: baseColor.withAlpha(100), width: 2),
             ),
             child: Column(
-
               children: [
-                Text('Journal', style: theme.textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 32
-
-                )
+                Text(
+                  'Journal',
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 32,
+                  ),
                 ),
                 const SizedBox(height: 12),
                 // Month Navigation
@@ -59,7 +59,7 @@ class _JournalWidgetState extends State<JournalWidget> with TickerProviderStateM
                     IconButton(
                       icon: const Icon(Icons.arrow_back_ios),
                       color: Colors.blue[800],
-                      onPressed: () => controller.changeMonth(-1),
+                      onPressed: () => controller.changeMonth(-1, 'userId'), // Corrected to use controller.changeMonth
                     ),
                     Expanded(
                       child: SlideTransition(
@@ -77,12 +77,11 @@ class _JournalWidgetState extends State<JournalWidget> with TickerProviderStateM
                     IconButton(
                       icon: const Icon(Icons.arrow_forward_ios),
                       color: Colors.blue[800],
-                      onPressed: () => controller.changeMonth(1),
+                      onPressed: () => controller.changeMonth(1, 'userId'), // Corrected to use controller.changeMonth
                     ),
                   ],
                 ),
                 const SizedBox(height: 12),
-
                 // EasyDateTimeLinePicker
                 EasyTheme(
                   data: EasyTheme.of(context).copyWith(
@@ -97,17 +96,16 @@ class _JournalWidgetState extends State<JournalWidget> with TickerProviderStateM
                     firstDate: firstDay,
                     lastDate: lastDay,
                     focusedDate: controller.selectedDate.value,
-                    onDateChange: (date) => controller.selectedDate.value = date,
+                    onDateChange: (date) => controller.changeSelectedDate(date, 'userId'), // Corrected to use changeSelectedDate
                   ),
                 ),
-
                 const SizedBox(height: 12),
                 // Journal Entries
                 Expanded(
                   child: ListView.builder(
-                    itemCount: controller.entriesForSelectedDate.length,
+                    itemCount: controller.entries.length, // Corrected to use controller.entries
                     itemBuilder: (context, i) {
-                      final entry = controller.entriesForSelectedDate[i];
+                      final entry = controller.entries[i];
                       return Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -117,7 +115,7 @@ class _JournalWidgetState extends State<JournalWidget> with TickerProviderStateM
                         margin: const EdgeInsets.symmetric(vertical: 6),
                         child: ListTile(
                           title: Text(entry['title']!, style: TextStyle(color: Colors.blue[900])),
-                          subtitle: Text(entry['snippet']!, style: TextStyle(color: Colors.blueGrey[800])),
+                          subtitle: Text(entry['description']!, style: TextStyle(color: Colors.blueGrey[800])), // Fixed to show 'description'
                         ),
                       );
                     },
@@ -130,7 +128,7 @@ class _JournalWidgetState extends State<JournalWidget> with TickerProviderStateM
                     backgroundColor: Colors.blue[600],
                     onPressed: () {
                       // Add entry
-                     showDialog(context: context, builder: (context) => AddJournal());
+                      showDialog(context: context, builder: (context) => AddJournal());
                     },
                     child: const Icon(Icons.add, color: Colors.white),
                   ),

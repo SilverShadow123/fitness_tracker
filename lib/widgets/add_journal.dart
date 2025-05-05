@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../controllers/journal_controller.dart'; // Ensure the correct import
 
 class AddJournal extends StatefulWidget {
   const AddJournal({super.key});
@@ -13,6 +14,7 @@ class _AddJournalState extends State<AddJournal> {
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
+  final JournalController journalController = Get.find(); // Get the controller instance
 
   @override
   void dispose() {
@@ -73,8 +75,7 @@ class _AddJournalState extends State<AddJournal> {
               const SizedBox(height: 24),
               ElevatedButton.icon(
                 onPressed: () {
-                  // TODO: implement save logic
-                  Get.back();
+                  _saveJournalEntry(); // Call the save function
                 },
                 icon: const Icon(Icons.check, color: Colors.white),
                 label: const Text(
@@ -94,6 +95,22 @@ class _AddJournalState extends State<AddJournal> {
         ),
       ),
     );
+  }
+
+  void _saveJournalEntry() async {
+    final title = titleController.text.trim();
+    final description = descriptionController.text.trim();
+
+    if (title.isNotEmpty && description.isNotEmpty) {
+      try {
+        await journalController.addJournalEntry('userId', title, description); // Save entry
+        Get.back(); // Close the dialog
+      } catch (e) {
+        Get.snackbar('Error', 'Failed to save journal entry', snackPosition: SnackPosition.BOTTOM);
+      }
+    } else {
+      Get.snackbar('Error', 'Title and description cannot be empty', snackPosition: SnackPosition.BOTTOM);
+    }
   }
 
   Widget _buildTextField({
