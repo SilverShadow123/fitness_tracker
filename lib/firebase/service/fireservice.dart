@@ -187,4 +187,15 @@ class FirestoreService {
       throw Exception('Error deleting daily goal: $e');
     }
   }
+  Future<String?> getUserGender(String uid) async {
+    try {
+      final doc = await _users.doc(uid).get();
+      if (doc.exists) {
+        return doc.data()?['gender'] as String?;
+      }
+    } catch (e) {
+      throw Exception('Error fetching gender: $e');
+    }
+    return null;
+  }
 }

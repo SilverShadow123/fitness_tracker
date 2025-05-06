@@ -17,8 +17,10 @@ class HomeScreen extends GetView<HomeController> {
   // Grab the current Firebase user ID once
   final String uid = FirebaseAuth.instance.currentUser!.uid;
 
-  final StepCalculationController stepCalculationController = Get.find<StepCalculationController>();
-  final DailyGoalsController dailyGoalsController = Get.find<DailyGoalsController>();
+  final StepCalculationController stepCalculationController =
+      Get.find<StepCalculationController>();
+  final DailyGoalsController dailyGoalsController =
+      Get.find<DailyGoalsController>();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class HomeScreen extends GetView<HomeController> {
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
                   DailyGoalsWidget(),
-                  JournalWidget(uid: uid),    // ← Pass real UID here
+                  JournalWidget(uid: uid), // ← Pass real UID here
                   ProfileWidget(),
                 ],
               ),
@@ -55,8 +57,15 @@ class HomeScreen extends GetView<HomeController> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         GestureDetector(
-                          onTap: stepCalculationController.resetStepCount,
-                          child: Icon(Icons.replay, color: Colors.blue[800], size: 28),
+                          onTap: () {
+                            dailyGoalsController.resetGoals();
+                            dailyGoalsController.resetWaterAndSleep();
+                          },
+                          child: Icon(
+                            Icons.replay,
+                            color: Colors.blue[800],
+                            size: 28,
+                          ),
                         ),
                         const SizedBox(width: 8),
                         GestureDetector(
@@ -65,9 +74,12 @@ class HomeScreen extends GetView<HomeController> {
                               context: context,
                               builder: (_) => const AddGoalsSetSleepWater(),
                             );
-                            dailyGoalsController.resetGoals();
                           },
-                          child: Icon(Icons.add, color: Colors.blue[800], size: 28),
+                          child: Icon(
+                            Icons.add,
+                            color: Colors.blue[800],
+                            size: 28,
+                          ),
                         ),
                       ],
                     ),
@@ -83,10 +95,17 @@ class HomeScreen extends GetView<HomeController> {
                 return Align(
                   alignment: Alignment.topRight,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 48.0, horizontal: 16.0),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 48.0,
+                      horizontal: 16.0,
+                    ),
                     child: GestureDetector(
                       onTap: controller.logout,
-                      child: Icon(Icons.logout, color: Colors.red[800], size: 28),
+                      child: Icon(
+                        Icons.logout,
+                        color: Colors.red[800],
+                        size: 28,
+                      ),
                     ),
                   ),
                 );

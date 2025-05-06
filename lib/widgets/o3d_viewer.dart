@@ -9,18 +9,38 @@ class O3DViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<HomeController>();
-    return O3D(
-      key: const ValueKey('main-o3d'),
-      src: 'assets/3d_model/disney_style_character.glb',
-      controller: controller.o3dController,
-      xrEnvironment: true,
-      ar: false,
-      autoPlay:  true,
-      autoRotate: false,
-      cameraControls: false,
 
-      cameraTarget: CameraTarget(-0.50, 1.5, -0.05),
-      cameraOrbit: CameraOrbit(0, 90, 1),
-    );
+    // Observe the gender value
+    return Obx(() {
+      // If gender is not available, show a loading spinner
+      if (controller.gender.value.isEmpty) {
+        return Center(child: CircularProgressIndicator());
+      }
+
+      // Get the gender and choose model path accordingly
+      final gender = controller.gender.value;
+      final modelSrc = gender.toLowerCase() != 'male'
+          ? 'assets/3d_model/disney_style_character.glb'
+          : 'assets/3d_model/thalapathy_vijay_3d_model.glb';
+
+      // Define camera target based on gender
+      final cameraTarget = gender.toLowerCase() != 'male'
+          ? CameraTarget(-0.4, 1.5, -0.30)
+          : CameraTarget(-0.25, 1, -0.50);
+
+      // Return the O3D widget with dynamic camera and model source
+      return O3D(
+        key: const ValueKey('main-o3d'),
+        src: modelSrc,
+        controller: controller.o3dController,
+        xrEnvironment: true,
+        ar: false,
+        autoPlay: true,
+        autoRotate: false,
+        cameraControls: false,
+        cameraTarget: cameraTarget,
+        cameraOrbit: CameraOrbit(0, 90, 1),
+      );
+    });
   }
 }

@@ -92,7 +92,9 @@ class GoalSectionCards extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      controller.updateSleepHours();
+                    },
                     child: const Icon(Icons.add, color: Colors.blue),
                   )
                 ],
@@ -115,7 +117,9 @@ class GoalSectionCards extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      controller.updateWaterIntake();
+                    },
                     child: const Icon(Icons.add, color: Colors.blue),
                   )
                 ],

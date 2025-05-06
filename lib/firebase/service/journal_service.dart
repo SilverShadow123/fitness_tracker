@@ -14,7 +14,7 @@ class JournalService {
       String title,
       String description,
       ) async {
-    final dateId = _formatDate(date);  // e.g., 2025-05-06
+    final dateId = _formatDate(date);
 
     final data = {
       'title': title,
