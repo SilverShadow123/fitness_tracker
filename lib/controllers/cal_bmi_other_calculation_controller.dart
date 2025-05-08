@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../firebase/service/fireservice.dart';
 import 'step_calculation_controller.dart';
@@ -20,29 +21,38 @@ class HealthCalculationController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchUserDataAndCalculate();
+calculateBMI();
   }
 
-  Future<void> fetchUserDataAndCalculate() async {
-    if (uid.isEmpty) return;
 
-    final profile = await firestoreService.getUserProfile(uid);
-    if (profile != null) {
-      weight.value = (profile['weight'] ?? 0.0).toDouble();
-      height.value = (profile['height'] ?? 0.0).toDouble();
+  void calculateBMI() async {
+    final result = await firestoreService.getUserHeightAndWeight(uid);
 
-      calculateBMI(weight.value, height.value);
-      calculateCalories();
-    }
-  }
+    if (result != null) {
+      weight.value = result['weight']!;
+      height.value = result['height']! / 100; // convert cm to meters
 
-  void calculateBMI(double weight, double height) {
-    if (weight > 0 && height > 0) {
-      bmi.value = weight / (height * height);
+      if (weight.value > 0 && height.value > 0) {
+        bmi.value = weight.value / (height.value * height.value);
+      } else {
+        bmi.value = 0.0;
+      }
     } else {
       bmi.value = 0.0;
     }
   }
+   Widget bmiChart() {
+    if (bmi.value < 18.5) {
+    return Text('Underweight');
+    } else if (bmi.value >= 18.5 && bmi.value < 24.9) {
+     return Text('Normal');
+    } else if (bmi.value >= 25 && bmi.value < 29.9) {
+    return Text("Overweight");
+    } else {
+     return Text("Obesity");
+    }
+  }
+
 
   void calculateCalories() {
     if (weight.value > 0 && stepController.stepCount.value >= 0) {

@@ -198,4 +198,26 @@ class FirestoreService {
     }
     return null;
   }
+  Future<Map<String, double>?> getUserHeightAndWeight(String uid) async {
+    try {
+      final doc = await _users.doc(uid).get();
+      if (doc.exists) {
+        final data = doc.data();
+        final height = double.tryParse(data?['height'] ?? '');
+        final weight = double.tryParse(data?['weight'] ?? '');
+
+        if (height != null && weight != null) {
+          return {
+            'height': height,
+            'weight': weight,
+          };
+        }
+      }
+    } catch (e) {
+      throw Exception('Error fetching height and weight: $e');
+    }
+    return null;
+  }
+
+
 }

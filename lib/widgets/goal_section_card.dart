@@ -40,7 +40,7 @@ class GoalSectionCards extends StatelessWidget {
       final waterProgress = (waterConsumed / waterGoal).clamp(0.0, 1.0);
 
       final bmiGoal = goal?.bmiGoal ?? 22.5;
-      final currentBMI = healthCalculationController.bmi.value;
+      final currentBMI = double.parse(healthCalculationController.bmi.value.toStringAsFixed(2));
       final bmiProgress = (1 - ((currentBMI - bmiGoal).abs() / bmiGoal)).clamp(0.0, 1.0);
 
 
@@ -138,6 +138,8 @@ class GoalSectionCards extends StatelessWidget {
               Text('Goal: $bmiGoal'),
               Text('Current: $currentBMI'),
               Text('Remaining: ${(bmiGoal - currentBMI).toStringAsFixed(1)}'),
+             Text('Status:'),
+             healthCalculationController.bmiChart(),
             ],
           ),
         ],
