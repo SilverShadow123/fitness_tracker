@@ -48,11 +48,31 @@ class AddGoalsSetSleepWater extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        _animatedInputField(controller.stepsController, 'Daily Steps', Icons.directions_walk),
-                        _animatedInputField(controller.caloriesController, 'Daily Calories', Icons.local_fire_department),
-                        _animatedInputField(controller.targetSleepController, 'Target Sleep (hrs)', Icons.bedtime),
-                        _animatedInputField(controller.waterGoalController, 'Water Goal (L)', Icons.water_drop),
-                        _animatedInputField(controller.bmiController, 'BMI Goal', Icons.monitor_weight),
+                        _animatedInputField(
+                          controller.stepsController,
+                          'Daily Steps',
+                          Icons.directions_walk,
+                        ),
+                        _animatedInputField(
+                          controller.caloriesController,
+                          'Daily Calories',
+                          Icons.local_fire_department,
+                        ),
+                        _animatedInputField(
+                          controller.targetSleepController,
+                          'Target Sleep (hrs)',
+                          Icons.bedtime,
+                        ),
+                        _animatedInputField(
+                          controller.waterGoalController,
+                          'Water Goal (L)',
+                          Icons.water_drop,
+                        ),
+                        _animatedInputField(
+                          controller.bmiController,
+                          'BMI Goal',
+                          Icons.monitor_weight,
+                        ),
 
                         const SizedBox(height: 16),
 
@@ -85,7 +105,11 @@ class AddGoalsSetSleepWater extends StatelessWidget {
     );
   }
 
-  Widget _animatedInputField(TextEditingController controller, String label, IconData icon) {
+  Widget _animatedInputField(
+    TextEditingController controller,
+    String label,
+    IconData icon,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: TweenAnimationBuilder<double>(
@@ -94,7 +118,10 @@ class AddGoalsSetSleepWater extends StatelessWidget {
         builder: (context, value, child) {
           return Opacity(
             opacity: value,
-            child: Transform.translate(offset: Offset(0, (1 - value) * 20), child: child),
+            child: Transform.translate(
+              offset: Offset(0, (1 - value) * 20),
+              child: child,
+            ),
           );
         },
         child: TextField(
@@ -106,9 +133,7 @@ class AddGoalsSetSleepWater extends StatelessWidget {
             fillColor: Colors.white,
             prefixIcon: Icon(icon, color: Colors.blue.shade600),
             labelStyle: const TextStyle(color: Colors.blue),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(color: Colors.blue.shade700),
@@ -129,11 +154,16 @@ class AddGoalsSetSleepWater extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton.icon(
         icon: Icon(icon, color: Colors.white),
-        label: Text(label, style: const TextStyle(color: Colors.white, fontSize: 16)),
+        label: Text(
+          label,
+          style: const TextStyle(color: Colors.white, fontSize: 16),
+        ),
         style: ElevatedButton.styleFrom(
           backgroundColor: color,
           padding: const EdgeInsets.symmetric(vertical: 14),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
           elevation: 3,
         ),
         onPressed: onPressed,

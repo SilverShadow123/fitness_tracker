@@ -44,7 +44,7 @@ class HomeController extends GetxController {
           o3dController.cameraTarget(-0.4, 1.5, -0.30);
           o3dController.cameraOrbit(0, 90, 1);
           break;
-        }else{
+        } else {
           o3dController.cameraTarget(-0.25, 1, -0.50);
           o3dController.cameraOrbit(0, 90, 1);
           break;
@@ -55,23 +55,22 @@ class HomeController extends GetxController {
           o3dController.cameraTarget(0, 1.5, -0.50);
           o3dController.cameraOrbit(-90, 90, 1.5);
           break;
-        }else{
+        } else {
           o3dController.cameraTarget(0, 1, -0.40);
           o3dController.cameraOrbit(-90, 90, 1.5);
           break;
         }
 
       case 2:
-        if(gender.value.toLowerCase() == 'female'){
+        if (gender.value.toLowerCase() == 'female') {
           o3dController.cameraTarget(-0.4, 1.5, -0.20);
           o3dController.cameraOrbit(0, 90, -7);
           break;
-        }else{
+        } else {
           o3dController.cameraTarget(-0.3, 1, -0.40);
           o3dController.cameraOrbit(0, 90, -7);
           break;
         }
-
     }
 
     page.value = pageIndex;

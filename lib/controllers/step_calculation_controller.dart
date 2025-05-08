@@ -55,7 +55,7 @@ class StepCalculationController extends GetxController {
   }
 
   void resetStepCount() {
-    _initialSteps = 0;  // Reset baseline
+    _initialSteps = 0; // Reset baseline
     stepCount.value = 0;
     logger.i('Step count reset.');
   }

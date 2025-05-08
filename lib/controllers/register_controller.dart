@@ -9,7 +9,8 @@ class RegisterController extends GetxController {
   final TextEditingController nameTEController = TextEditingController();
   final TextEditingController emailTEController = TextEditingController();
   final TextEditingController passwordTEController = TextEditingController();
-  final TextEditingController confirmPasswordTEController = TextEditingController();
+  final TextEditingController confirmPasswordTEController =
+      TextEditingController();
   final TextEditingController heightTEController = TextEditingController();
   final TextEditingController weightTEController = TextEditingController();
   final TextEditingController ageTEController = TextEditingController();
@@ -39,24 +40,26 @@ class RegisterController extends GetxController {
     String age = ageTEController.text.trim();
     String gender = genderTEController.text.trim();
 
-
     if (name.isEmpty ||
         email.isEmpty ||
         password.isEmpty ||
         confirmPassword.isEmpty ||
         height.isEmpty ||
         weight.isEmpty ||
-        age.isEmpty
-    || gender.isEmpty
-    ) {
+        age.isEmpty ||
+        gender.isEmpty) {
       Get.snackbar("Error", "All fields are required");
       return;
     }
 
-    if (gender != 'Male' && gender != 'Female' && gender != 'male' && gender !='female' ) {
+    if (gender != 'Male' &&
+        gender != 'Female' &&
+        gender != 'male' &&
+        gender != 'female') {
       Get.snackbar("Error", "Gender has to be either Male or Female");
       return;
-    } if (password != confirmPassword) {
+    }
+    if (password != confirmPassword) {
       Get.snackbar("Error", "Passwords do not match");
       return;
     }
@@ -72,7 +75,15 @@ class RegisterController extends GetxController {
 
       // Add user to Firestore
       String uid = userCredential.user!.uid;
-      await _firestoreService.addUser(uid, name, email, height, weight, age, gender);
+      await _firestoreService.addUser(
+        uid,
+        name,
+        email,
+        height,
+        weight,
+        age,
+        gender,
+      );
 
       Get.back(); // remove loading
       Get.toNamed(AppRoutes.login);

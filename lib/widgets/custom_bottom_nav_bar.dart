@@ -9,7 +9,7 @@ class CustomBottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<HomeController>();
     return Obx(
-          () => BottomNavigationBar(
+      () => BottomNavigationBar(
         currentIndex: controller.page.value,
         onTap: controller.onPageChanged,
         selectedItemColor: Colors.blue,

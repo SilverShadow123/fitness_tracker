@@ -27,7 +27,8 @@ class ProfileController extends GetxController {
       if (data != null) {
         name.value = data['name'] ?? 'Dis';
         age.value = int.tryParse(data['age']?.toString() ?? '') ?? 23;
-        weight.value = double.tryParse(data['weight']?.toString() ?? '') ?? 68.5;
+        weight.value =
+            double.tryParse(data['weight']?.toString() ?? '') ?? 68.5;
         height.value = double.tryParse(data['height']?.toString() ?? '') ?? 175;
         status.value = data['status'] ?? 'Active';
         history.value = data['history'] ?? 'Latest';

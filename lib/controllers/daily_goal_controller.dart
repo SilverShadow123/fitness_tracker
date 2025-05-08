@@ -63,12 +63,12 @@ class DailyGoalsController extends GetxController {
   String get uid => FirebaseAuth.instance.currentUser?.uid ?? '';
 
   double calculateTotalProgress(
-      double calories,
-      int steps,
-      double sleep,
-      double water,
-      double currentBmi,
-      ) {
+    double calories,
+    int steps,
+    double sleep,
+    double water,
+    double currentBmi,
+  ) {
     final calorieProgress = (calories / (goalModel.value?.calories ?? 1000))
         .clamp(0.0, 1.0);
     final stepProgress = (steps / 10000).clamp(0.0, 1.0);
@@ -87,10 +87,10 @@ class DailyGoalsController extends GetxController {
     );
 
     return (calorieProgress +
-        stepProgress +
-        sleepProgress +
-        waterProgress +
-        bmiProgress) /
+            stepProgress +
+            sleepProgress +
+            waterProgress +
+            bmiProgress) /
         5;
   }
 
@@ -132,12 +132,12 @@ class DailyGoalsController extends GetxController {
     sleepHours.value++;
     _savePreferences(); // Save the updated sleep hours
   }
+
   void resetWaterAndSleep() {
     waterIntake.value = 0;
     sleepHours.value = 0;
     _savePreferences(); // Save the reset values
   }
-
 
   Future<void> resetGoals() async {
     if (uid.isEmpty) return;

@@ -43,11 +43,16 @@ class DailyGoalsWidget extends StatelessWidget {
           const SizedBox(height: 24),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: Obx(()=>GoalSectionCards(
-                sleptHours: controller.sleepHours.value.toDouble(),
-                waterGlasses: controller.waterIntake.value,
-              ),)
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 8.0,
+              ),
+              child: Obx(
+                () => GoalSectionCards(
+                  sleptHours: controller.sleepHours.value.toDouble(),
+                  waterGlasses: controller.waterIntake.value,
+                ),
+              ),
             ),
           ),
         ],

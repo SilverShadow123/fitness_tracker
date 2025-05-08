@@ -4,11 +4,7 @@ class ButtonAuth extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
 
-  const ButtonAuth({
-    super.key,
-    required this.text,
-    required this.onPressed,
-  });
+  const ButtonAuth({super.key, required this.text, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +15,7 @@ class ButtonAuth extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 16),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
-          side: const BorderSide(
-            color: Colors.indigo,
-            width: 2,
-          ),
+          side: const BorderSide(color: Colors.indigo, width: 2),
         ),
       ),
       onPressed: onPressed,

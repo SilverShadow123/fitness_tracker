@@ -47,7 +47,11 @@ class EditProfileScreen extends StatelessWidget {
                   child: CircleAvatar(
                     radius: 50,
                     backgroundColor: Colors.blue.shade100,
-                    child: const Icon(Icons.person, size: 60, color: Colors.white),
+                    child: const Icon(
+                      Icons.person,
+                      size: 60,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -61,11 +65,19 @@ class EditProfileScreen extends StatelessWidget {
                 const SizedBox(height: 12),
 
                 // Weight Field
-                _buildTextField(weightController, 'Weight (kg)', TextInputType.number),
+                _buildTextField(
+                  weightController,
+                  'Weight (kg)',
+                  TextInputType.number,
+                ),
                 const SizedBox(height: 12),
 
                 // Height Field
-                _buildTextField(heightController, 'Height (cm)', TextInputType.number),
+                _buildTextField(
+                  heightController,
+                  'Height (cm)',
+                  TextInputType.number,
+                ),
                 const SizedBox(height: 20),
 
                 // Save Button
@@ -84,7 +96,11 @@ class EditProfileScreen extends StatelessWidget {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12), backgroundColor: Colors.blue.shade800,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 30,
+                        vertical: 12,
+                      ),
+                      backgroundColor: Colors.blue.shade800,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -110,7 +126,10 @@ class EditProfileScreen extends StatelessWidget {
 
   // Reusable TextField Widget with decoration and validation
   Widget _buildTextField(
-      TextEditingController controller, String label, TextInputType keyboardType) {
+    TextEditingController controller,
+    String label,
+    TextInputType keyboardType,
+  ) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
@@ -131,7 +150,10 @@ class EditProfileScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             borderSide: const BorderSide(color: Colors.blue, width: 2),
           ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 14,
+          ),
         ),
         keyboardType: keyboardType,
         validator: (value) {

@@ -13,7 +13,7 @@ class TextFieldAuth extends StatelessWidget {
     required this.labelText,
     required this.obscureText,
     required this.hintText,
-     this.keyboardType,
+    this.keyboardType,
   });
 
   @override
@@ -45,7 +45,10 @@ class TextFieldAuth extends StatelessWidget {
           hintStyle: TextStyle(color: Colors.grey[500]),
           filled: true,
           fillColor: Colors.white,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 16,
+          ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide.none,

@@ -40,13 +40,33 @@ class RegisterScreen extends GetView {
 
                 // Input Fields with animations
                 _buildInputField(controller.nameTEController, 'Name'),
-                _buildInputField(controller.ageTEController, 'Age', isNumber: true),
-                _buildInputField(controller.heightTEController, 'Height(cm)', isNumber: true),
-                _buildInputField(controller.weightTEController, 'Weight(kg)', isNumber: true),
+                _buildInputField(
+                  controller.ageTEController,
+                  'Age',
+                  isNumber: true,
+                ),
+                _buildInputField(
+                  controller.heightTEController,
+                  'Height(cm)',
+                  isNumber: true,
+                ),
+                _buildInputField(
+                  controller.weightTEController,
+                  'Weight(kg)',
+                  isNumber: true,
+                ),
                 _buildInputField(controller.genderTEController, 'Gender'),
                 _buildInputField(controller.emailTEController, 'Email'),
-                _buildInputField(controller.passwordTEController, 'Password', obscureText: true),
-                _buildInputField(controller.confirmPasswordTEController, 'Confirm Password', obscureText: true),
+                _buildInputField(
+                  controller.passwordTEController,
+                  'Password',
+                  obscureText: true,
+                ),
+                _buildInputField(
+                  controller.confirmPasswordTEController,
+                  'Confirm Password',
+                  obscureText: true,
+                ),
 
                 const SizedBox(height: 24),
 
@@ -98,7 +118,12 @@ class RegisterScreen extends GetView {
   }
 
   // Reusable input field widget with animations
-  Widget _buildInputField(TextEditingController controller, String labelText, {bool isNumber = false, bool obscureText = false}) {
+  Widget _buildInputField(
+    TextEditingController controller,
+    String labelText, {
+    bool isNumber = false,
+    bool obscureText = false,
+  }) {
     return AnimatedOpacity(
       opacity: 1.0,
       duration: Duration(seconds: 1),

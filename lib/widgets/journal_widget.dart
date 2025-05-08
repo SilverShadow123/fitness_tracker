@@ -70,8 +70,7 @@ class _JournalWidgetState extends State<JournalWidget>
                     IconButton(
                       icon: const Icon(Icons.arrow_back_ios),
                       color: Colors.blue[800],
-                      onPressed: () =>
-                          controller.changeMonth(-1, widget.uid),
+                      onPressed: () => controller.changeMonth(-1, widget.uid),
                     ),
                     Expanded(
                       child: SlideTransition(
@@ -89,8 +88,7 @@ class _JournalWidgetState extends State<JournalWidget>
                     IconButton(
                       icon: const Icon(Icons.arrow_forward_ios),
                       color: Colors.blue[800],
-                      onPressed: () =>
-                          controller.changeMonth(1, widget.uid),
+                      onPressed: () => controller.changeMonth(1, widget.uid),
                     ),
                   ],
                 ),
@@ -99,8 +97,9 @@ class _JournalWidgetState extends State<JournalWidget>
                 // Date Timeline Picker
                 EasyTheme(
                   data: EasyTheme.of(context).copyWith(
-                    dayBackgroundColor:
-                    WidgetStateProperty.resolveWith((states) {
+                    dayBackgroundColor: WidgetStateProperty.resolveWith((
+                      states,
+                    ) {
                       if (states.contains(WidgetState.selected)) {
                         return Colors.blue.shade800;
                       }
@@ -117,8 +116,9 @@ class _JournalWidgetState extends State<JournalWidget>
                     firstDate: firstDay,
                     lastDate: lastDay,
                     focusedDate: controller.selectedDate.value,
-                    onDateChange: (date) =>
-                        controller.changeSelectedDate(date, widget.uid),
+                    onDateChange:
+                        (date) =>
+                            controller.changeSelectedDate(date, widget.uid),
                   ),
                 ),
 
@@ -126,39 +126,37 @@ class _JournalWidgetState extends State<JournalWidget>
 
                 // Loading or Entries
                 Expanded(
-                  child: controller.isLoading.value
-                      ? const Center(child: CircularProgressIndicator())
-                      : controller.entries.isEmpty
-                      ? const Center(child: Text('No entry for this date.'))
-                      : ListView.builder(
-                    itemCount: controller.entries.length,
-                    itemBuilder: (context, i) {
-                      final entry = controller.entries[i];
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        color: baseColor,
-                        elevation: 3,
-                        margin: const EdgeInsets.symmetric(
-                            vertical: 6),
-                        child: ListTile(
-                          title: Text(
-                            entry['title'] ?? 'Untitled',
-                            style: TextStyle(
-                                color: Colors.blue[900]),
+                  child:
+                      controller.isLoading.value
+                          ? const Center(child: CircularProgressIndicator())
+                          : controller.entries.isEmpty
+                          ? const Center(child: Text('No entry for this date.'))
+                          : ListView.builder(
+                            itemCount: controller.entries.length,
+                            itemBuilder: (context, i) {
+                              final entry = controller.entries[i];
+                              return Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                color: baseColor,
+                                elevation: 3,
+                                margin: const EdgeInsets.symmetric(vertical: 6),
+                                child: ListTile(
+                                  title: Text(
+                                    entry['title'] ?? 'Untitled',
+                                    style: TextStyle(color: Colors.blue[900]),
+                                  ),
+                                  subtitle: Text(
+                                    entry['description'] ?? 'No Description',
+                                    style: TextStyle(
+                                      color: Colors.blueGrey[800],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                          subtitle: Text(
-                            entry['description'] ??
-                                'No Description',
-                            style: TextStyle(
-                                color:
-                                Colors.blueGrey[800]),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
                 ),
 
                 // Add Button
@@ -167,11 +165,11 @@ class _JournalWidgetState extends State<JournalWidget>
                   child: FloatingActionButton(
                     mini: true,
                     backgroundColor: Colors.blue[600],
-                    onPressed: () => showDialog(
-                      context: context,
-                      builder: (_) =>
-                          AddJournal(uid: widget.uid),
-                    ),
+                    onPressed:
+                        () => showDialog(
+                          context: context,
+                          builder: (_) => AddJournal(uid: widget.uid),
+                        ),
                     child: const Icon(Icons.add, color: Colors.white),
                   ),
                 ),

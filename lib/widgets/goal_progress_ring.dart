@@ -21,14 +21,15 @@ class GoalProgressRing extends StatelessWidget {
       animationDuration: 3,
       startAngle: 0,
       progressStrokeWidth: 12,
-      onGetText: (double value) => Text(
-        '${value.toInt()}%',
-        style: theme.textTheme.titleLarge?.copyWith(
-          fontWeight: FontWeight.bold,
-          fontSize: 24,
-          color: const Color(0xFF2196F3),
-        ),
-      ),
+      onGetText:
+          (double value) => Text(
+            '${value.toInt()}%',
+            style: theme.textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+              color: const Color(0xFF2196F3),
+            ),
+          ),
     );
   }
 }

@@ -120,28 +120,28 @@ class GoalCard extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children:
-                              children
-                                  .map(
-                                    (child) => Padding(
-                                  padding: const EdgeInsets.only(
-                                    top: 4.0,
-                                  ),
-                                  child: AnimatedOpacity(
-                                    opacity: isExpanded ? 1 : 0,
-                                    duration: const Duration(
-                                      milliseconds: 300,
-                                    ),
-                                    child: child,
-                                  ),
-                                ),
-                              )
-                                  .toList(),
+                                  children
+                                      .map(
+                                        (child) => Padding(
+                                          padding: const EdgeInsets.only(
+                                            top: 4.0,
+                                          ),
+                                          child: AnimatedOpacity(
+                                            opacity: isExpanded ? 1 : 0,
+                                            duration: const Duration(
+                                              milliseconds: 300,
+                                            ),
+                                            child: child,
+                                          ),
+                                        ),
+                                      )
+                                      .toList(),
                             ),
                           ),
                           crossFadeState:
-                          isExpanded
-                              ? CrossFadeState.showSecond
-                              : CrossFadeState.showFirst,
+                              isExpanded
+                                  ? CrossFadeState.showSecond
+                                  : CrossFadeState.showFirst,
                           duration: const Duration(milliseconds: 300),
                         ),
                       ),

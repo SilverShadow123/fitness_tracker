@@ -5,8 +5,6 @@ import 'package:get/get_instance/src/bindings_interface.dart';
 class HistoryBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<GoalsHistoryController>(
-      () => GoalsHistoryController(),
-    );
+    Get.lazyPut<GoalsHistoryController>(() => GoalsHistoryController());
   }
 }

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../firebase/service/journal_service.dart';
 
-class JournalController extends GetxController with GetTickerProviderStateMixin {
+class JournalController extends GetxController
+    with GetTickerProviderStateMixin {
   final currentMonth = DateTime.now().obs;
   final selectedDate = DateTime.now().obs;
 
@@ -16,8 +17,18 @@ class JournalController extends GetxController with GetTickerProviderStateMixin 
   final JournalService _journalService = JournalService();
 
   static const List<String> monthNames = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December',
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
 
   String get monthLabel =>
@@ -70,19 +81,29 @@ class JournalController extends GetxController with GetTickerProviderStateMixin 
     isLoading.value = true;
     try {
       entries.clear();
-      final entry = await _journalService.getJournalEntry(uid, selectedDate.value);
+      final entry = await _journalService.getJournalEntry(
+        uid,
+        selectedDate.value,
+      );
       if (entry != null) {
         entries.add(entry);
       }
     } catch (e) {
-      Get.snackbar('Error', 'Failed to load journal entry', snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar(
+        'Error',
+        'Failed to load journal entry',
+        snackPosition: SnackPosition.BOTTOM,
+      );
     } finally {
       isLoading.value = false;
     }
   }
 
   Future<void> addOrUpdateJournalEntry(
-      String uid, String title, String description) async {
+    String uid,
+    String title,
+    String description,
+  ) async {
     isLoading.value = true;
     try {
       await _journalService.addOrUpdateJournalEntry(
@@ -93,7 +114,11 @@ class JournalController extends GetxController with GetTickerProviderStateMixin 
       );
       await loadJournalEntry(uid);
     } catch (e) {
-      Get.snackbar('Error', 'Failed to save journal entry', snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar(
+        'Error',
+        'Failed to save journal entry',
+        snackPosition: SnackPosition.BOTTOM,
+      );
     } finally {
       isLoading.value = false;
     }

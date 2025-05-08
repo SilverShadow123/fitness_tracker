@@ -4,7 +4,6 @@ import '../controllers/login_controller.dart';
 import '../widgets/button_auth.dart';
 import '../widgets/login_register_text_field.dart';
 
-
 class LoginScreen extends GetView<LoginController> {
   LoginScreen({super.key});
 
@@ -48,7 +47,7 @@ class LoginScreen extends GetView<LoginController> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextButton(
-                    onPressed: (){},
+                    onPressed: () {},
                     child: const Text(
                       'Forgot Password?',
                       style: TextStyle(

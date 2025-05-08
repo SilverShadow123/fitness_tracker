@@ -9,11 +9,11 @@ class JournalService {
 
   // Add or update a journal entry for a specific date
   Future<void> addOrUpdateJournalEntry(
-      String uid,
-      DateTime date,
-      String title,
-      String description,
-      ) async {
+    String uid,
+    DateTime date,
+    String title,
+    String description,
+  ) async {
     final dateId = _formatDate(date);
 
     final data = {
@@ -22,11 +22,16 @@ class JournalService {
       'createdAt': FieldValue.serverTimestamp(),
     };
 
-    await _journalCollection(uid).doc(dateId).set(data);  // Add or update the journal for the specific date
+    await _journalCollection(
+      uid,
+    ).doc(dateId).set(data); // Add or update the journal for the specific date
   }
 
   // Get the journal entry for a specific date
-  Future<Map<String, dynamic>?> getJournalEntry(String uid, DateTime date) async {
+  Future<Map<String, dynamic>?> getJournalEntry(
+    String uid,
+    DateTime date,
+  ) async {
     final dateId = _formatDate(date);
     final doc = await _journalCollection(uid).doc(dateId).get();
 
@@ -38,9 +43,13 @@ class JournalService {
 
   // Get all journal entries for a user (optional)
   Future<List<Map<String, dynamic>>> getAllJournalEntries(String uid) async {
-    final snapshot = await _journalCollection(uid)
-        .orderBy('createdAt', descending: true)  // Order by createdAt for recent entries
-        .get();
+    final snapshot =
+        await _journalCollection(uid)
+            .orderBy(
+              'createdAt',
+              descending: true,
+            ) // Order by createdAt for recent entries
+            .get();
 
     return snapshot.docs.map((doc) => doc.data()).toList();
   }

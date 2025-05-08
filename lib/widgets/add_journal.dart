@@ -34,8 +34,7 @@ class _AddJournalState extends State<AddJournal> {
   Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: Colors.transparent,
-      insetPadding:
-      const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
       child: ConstrainedBox(
         constraints: BoxConstraints(
           maxHeight: MediaQuery.of(context).size.height * 0.6,
@@ -90,8 +89,7 @@ class _AddJournalState extends State<AddJournal> {
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue.shade700,
-                  padding:
-                  const EdgeInsets.symmetric(vertical: 14),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -159,8 +157,7 @@ class _AddJournalState extends State<AddJournal> {
           borderSide: BorderSide(color: Colors.blue.shade700),
         ),
       ),
-      keyboardType:
-      maxLines > 1 ? TextInputType.multiline : TextInputType.text,
+      keyboardType: maxLines > 1 ? TextInputType.multiline : TextInputType.text,
     );
   }
 }

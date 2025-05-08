@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class GoalsController extends GetxController {
-
   final FirestoreService _firestoreService = FirestoreService();
   // Controllers for Goals tab
   final stepsController = TextEditingController();
@@ -17,7 +16,6 @@ class GoalsController extends GetxController {
   // Controllers for Update tab
   final todaySleepController = TextEditingController();
   final todayWaterController = TextEditingController();
-
 
   String get uid => FirebaseAuth.instance.currentUser?.uid ?? '';
   // Get current user's email
@@ -32,13 +30,23 @@ class GoalsController extends GetxController {
     String targetSleep = targetSleepController.text.trim();
     String waterGoal = waterGoalController.text.trim();
     String bmi = bmiController.text.trim();
-    setGoals(steps,calories,targetSleep,waterGoal,bmi);
+    setGoals(steps, calories, targetSleep, waterGoal, bmi);
     print("Saved Goals");
     Get.back();
   }
-Future<void> setGoals(String steps,String calories,String targetSleep,String waterGoal,String bmi) async {
 
-    if (steps.isEmpty || calories.isEmpty || targetSleep.isEmpty || waterGoal.isEmpty || bmi.isEmpty) {
+  Future<void> setGoals(
+    String steps,
+    String calories,
+    String targetSleep,
+    String waterGoal,
+    String bmi,
+  ) async {
+    if (steps.isEmpty ||
+        calories.isEmpty ||
+        targetSleep.isEmpty ||
+        waterGoal.isEmpty ||
+        bmi.isEmpty) {
       Get.snackbar("Error", "All fields are required");
       return;
     }
@@ -55,11 +63,7 @@ Future<void> setGoals(String steps,String calories,String targetSleep,String wat
     } catch (e) {
       Get.snackbar("Error", "Failed to save goals");
     }
-}
-
-
-
-
+  }
 
   @override
   void onClose() {

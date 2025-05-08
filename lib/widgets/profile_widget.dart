@@ -60,59 +60,80 @@ class ProfileWidget extends StatelessWidget {
                 CircleAvatar(
                   radius: 40,
                   backgroundColor: Colors.blue.shade100.withAlpha(200),
-                  child: const Icon(Icons.person, size: 40, color: Colors.black87),
+                  child: const Icon(
+                    Icons.person,
+                    size: 40,
+                    color: Colors.black87,
+                  ),
                 ),
                 const SizedBox(height: 16),
-                Obx(() => Text(
-                  profileController.name.value,
-                  style: theme.textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue,
+                Obx(
+                  () => Text(
+                    profileController.name.value,
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue,
+                    ),
                   ),
-                )),
+                ),
                 const SizedBox(height: 4),
-                Obx(() => Text(
-                  "${profileController.age.value} years old",
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
+                Obx(
+                  () => Text(
+                    "${profileController.age.value} years old",
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
                   ),
-                )),
+                ),
                 const SizedBox(height: 16),
                 Wrap(
                   spacing: 8,
                   runSpacing: 8,
                   children: [
-                    Obx(() => infoCard(
-                      Icons.monitor_weight,
-                      'Weight',
-                      '${profileController.weight.value.toStringAsFixed(1)} kg',
-                    )),
-                    Obx(() => infoCard(
-                      Icons.height,
-                      'Height',
-                      '${profileController.height.value.toStringAsFixed(0)} cm',
-                    )),
-                    Obx(() => infoCard(
-                      Icons.health_and_safety,
-                      'Status',
-                      profileController.status.value,
-                    )),
-                    Obx(() => GestureDetector(
-                      onTap: () {
-                        Get.toNamed(AppRoutes.history, arguments: profileController.uid.value);
-                      },
-                      child: infoCard(
-                        Icons.history,
-                        'History',
-                        profileController.history.value,
+                    Obx(
+                      () => infoCard(
+                        Icons.monitor_weight,
+                        'Weight',
+                        '${profileController.weight.value.toStringAsFixed(1)} kg',
                       ),
-                    )),
+                    ),
+                    Obx(
+                      () => infoCard(
+                        Icons.height,
+                        'Height',
+                        '${profileController.height.value.toStringAsFixed(0)} cm',
+                      ),
+                    ),
+                    Obx(
+                      () => infoCard(
+                        Icons.health_and_safety,
+                        'Status',
+                        profileController.status.value,
+                      ),
+                    ),
+                    Obx(
+                      () => GestureDetector(
+                        onTap: () {
+                          Get.toNamed(
+                            AppRoutes.history,
+                            arguments: profileController.uid.value,
+                          );
+                        },
+                        child: infoCard(
+                          Icons.history,
+                          'History',
+                          profileController.history.value,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 16),
                 ElevatedButton.icon(
                   onPressed: () {
-                    Get.to(() => EditProfileScreen()); // Navigate to EditProfileScreen
+                    Get.to(
+                      () => EditProfileScreen(),
+                    ); // Navigate to EditProfileScreen
                   },
                   icon: const Icon(Icons.edit),
                   label: const Text("Edit Profile"),

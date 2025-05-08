@@ -23,7 +23,9 @@ class HomeBinding extends Bindings {
     Get.lazyPut<DailyGoalsController>(() => DailyGoalsController());
     Get.lazyPut<JournalController>(() => JournalController());
     Get.lazyPut<StepCalculationController>(() => StepCalculationController());
-    Get.lazyPut<HealthCalculationController>(() => HealthCalculationController());
+    Get.lazyPut<HealthCalculationController>(
+      () => HealthCalculationController(),
+    );
     Get.lazyPut<FirestoreService>(() => FirestoreService());
   }
 }

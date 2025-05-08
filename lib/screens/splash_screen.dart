@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../controllers/splash_controller.dart';
 
-class SplashScreen extends GetView<SplashController>{
+class SplashScreen extends GetView<SplashController> {
   SplashScreen({super.key});
 
   final SplashController splashController = Get.find<SplashController>();
@@ -28,9 +28,7 @@ class SplashScreen extends GetView<SplashController>{
               style: TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 40),
-            CircularProgressIndicator(
-              color: Colors.blue[900],
-            ),
+            CircularProgressIndicator(color: Colors.blue[900]),
           ],
         ),
       ),

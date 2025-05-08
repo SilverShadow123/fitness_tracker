@@ -5,7 +5,8 @@ import '../firebase/service/fireservice.dart';
 import 'step_calculation_controller.dart';
 
 class HealthCalculationController extends GetxController {
-  final StepCalculationController stepController = Get.find<StepCalculationController>();
+  final StepCalculationController stepController =
+      Get.find<StepCalculationController>();
   final FirestoreService firestoreService = Get.find<FirestoreService>();
 
   RxDouble bmi = 0.0.obs;
@@ -21,9 +22,8 @@ class HealthCalculationController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-calculateBMI();
+    calculateBMI();
   }
-
 
   void calculateBMI() async {
     final result = await firestoreService.getUserHeightAndWeight(uid);
@@ -41,18 +41,18 @@ calculateBMI();
       bmi.value = 0.0;
     }
   }
-   Widget bmiChart() {
+
+  Widget bmiChart() {
     if (bmi.value < 18.5) {
-    return Text('Underweight');
+      return Text('Underweight');
     } else if (bmi.value >= 18.5 && bmi.value < 24.9) {
-     return Text('Normal');
+      return Text('Normal');
     } else if (bmi.value >= 25 && bmi.value < 29.9) {
-    return Text("Overweight");
+      return Text("Overweight");
     } else {
-     return Text("Obesity");
+      return Text("Obesity");
     }
   }
-
 
   void calculateCalories() {
     if (weight.value > 0 && stepController.stepCount.value >= 0) {
@@ -61,6 +61,4 @@ calculateBMI();
       calories.value = 0.0;
     }
   }
-
-
 }

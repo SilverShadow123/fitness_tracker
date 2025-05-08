@@ -14,14 +14,14 @@ class FirestoreService {
 
   // Method to add user profile
   Future<void> addUser(
-      String uid,
-      String name,
-      String email,
-      String height,
-      String weight,
-      String age,
-      String gender,
-      ) async {
+    String uid,
+    String name,
+    String email,
+    String height,
+    String weight,
+    String age,
+    String gender,
+  ) async {
     final data = <String, dynamic>{
       'name': name,
       'email': email,
@@ -52,14 +52,14 @@ class FirestoreService {
 
   // Method to add or set daily goal
   Future<void> addOrSetDailyGoal(
-      String uid, {
-        double? calories,
-        double? targetsleep,
-        double? targetwater,
-        double? steps,
-        double? bmi,
-        String? description,
-      }) async {
+    String uid, {
+    double? calories,
+    double? targetsleep,
+    double? targetwater,
+    double? steps,
+    double? bmi,
+    String? description,
+  }) async {
     final data = <String, dynamic>{
       if (calories != null) 'calories': calories,
       if (targetsleep != null) 'targetsleep': targetsleep,
@@ -91,13 +91,13 @@ class FirestoreService {
 
   // Method to update the daily goal
   Future<void> updateDailyGoal(
-      String uid, {
-        double? calories,
-        double? targetsleep,
-        double? targetwater,
-        double? steps,
-        double? bmi,
-      }) async {
+    String uid, {
+    double? calories,
+    double? targetsleep,
+    double? targetwater,
+    double? steps,
+    double? bmi,
+  }) async {
     final data = <String, dynamic>{
       if (calories != null) 'calories': calories,
       if (targetsleep != null) 'targetsleep': targetsleep,
@@ -132,25 +132,29 @@ class FirestoreService {
   // Method to get daily goals history
   Future<List<Map<String, dynamic>>> getDailyGoalsHistory(String uid) async {
     try {
-      final snapshot = await _dailyGoalsHistoryCol(uid)
-          .orderBy('savedAt', descending: true)
-          .get();
+      final snapshot =
+          await _dailyGoalsHistoryCol(
+            uid,
+          ).orderBy('savedAt', descending: true).get();
 
-      return snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+      return snapshot.docs
+          .map((doc) => doc.data() as Map<String, dynamic>)
+          .toList();
     } catch (e) {
       throw Exception('Error fetching daily goals history: $e');
     }
   }
+
   // Method to update user profile
   Future<void> updateUserProfile(
-      String uid, {
-        String? name,
-        String? email,
-        String? height,
-        String? weight,
-        String? age,
-        String? gender,
-      }) async {
+    String uid, {
+    String? name,
+    String? email,
+    String? height,
+    String? weight,
+    String? age,
+    String? gender,
+  }) async {
     final data = <String, dynamic>{
       if (name != null) 'name': name,
       if (email != null) 'email': email,
@@ -187,6 +191,7 @@ class FirestoreService {
       throw Exception('Error deleting daily goal: $e');
     }
   }
+
   Future<String?> getUserGender(String uid) async {
     try {
       final doc = await _users.doc(uid).get();
@@ -198,6 +203,7 @@ class FirestoreService {
     }
     return null;
   }
+
   Future<Map<String, double>?> getUserHeightAndWeight(String uid) async {
     try {
       final doc = await _users.doc(uid).get();
@@ -207,10 +213,7 @@ class FirestoreService {
         final weight = double.tryParse(data?['weight'] ?? '');
 
         if (height != null && weight != null) {
-          return {
-            'height': height,
-            'weight': weight,
-          };
+          return {'height': height, 'weight': weight};
         }
       }
     } catch (e) {
@@ -218,6 +221,4 @@ class FirestoreService {
     }
     return null;
   }
-
-
 }

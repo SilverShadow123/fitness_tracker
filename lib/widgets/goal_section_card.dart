@@ -27,7 +27,10 @@ class GoalSectionCards extends StatelessWidget {
       final goal = controller.goalModel.value;
       final caloriesGoal = goal?.calories ?? 1000;
       final caloriesConsumed = healthCalculationController.calories;
-      final caloriesProgress = (caloriesConsumed / caloriesGoal).clamp(0.0, 1.0);
+      final caloriesProgress = (caloriesConsumed / caloriesGoal).clamp(
+        0.0,
+        1.0,
+      );
 
       final stepsGoal = goal?.steps ?? 10000;
       final stepsTaken = stepCalculationController.stepCount;
@@ -40,9 +43,13 @@ class GoalSectionCards extends StatelessWidget {
       final waterProgress = (waterConsumed / waterGoal).clamp(0.0, 1.0);
 
       final bmiGoal = goal?.bmiGoal ?? 22.5;
-      final currentBMI = double.parse(healthCalculationController.bmi.value.toStringAsFixed(2));
-      final bmiProgress = (1 - ((currentBMI - bmiGoal).abs() / bmiGoal)).clamp(0.0, 1.0);
-
+      final currentBMI = double.parse(
+        healthCalculationController.bmi.value.toStringAsFixed(2),
+      );
+      final bmiProgress = (1 - ((currentBMI - bmiGoal).abs() / bmiGoal)).clamp(
+        0.0,
+        1.0,
+      );
 
       return Wrap(
         spacing: 16,
@@ -59,7 +66,9 @@ class GoalSectionCards extends StatelessWidget {
             children: [
               Text('Goal: $caloriesGoal kcal'),
               Text('Consumed: $caloriesConsumed kcal'),
-              Text('Remaining: ${(caloriesGoal - caloriesConsumed.value).clamp(0, caloriesGoal)} kcal'),
+              Text(
+                'Remaining: ${(caloriesGoal - caloriesConsumed.value).clamp(0, caloriesGoal)} kcal',
+              ),
             ],
           ),
           GoalCard(
@@ -73,7 +82,9 @@ class GoalSectionCards extends StatelessWidget {
             children: [
               Text('Goal: $stepsGoal steps'),
               Text('Taken: $stepsTaken steps'),
-              Text('Remaining: ${(stepsGoal - stepsTaken.value).clamp(0, stepsGoal)} steps'),
+              Text(
+                'Remaining: ${(stepsGoal - stepsTaken.value).clamp(0, stepsGoal)} steps',
+              ),
             ],
           ),
           GoalCard(
@@ -87,7 +98,9 @@ class GoalSectionCards extends StatelessWidget {
             children: [
               Text('Goal: $sleepGoal hrs'),
               Text('Slept: $sleptHours hrs'),
-              Text('Remaining: ${(sleepGoal - sleptHours).clamp(0, sleepGoal)} hrs'),
+              Text(
+                'Remaining: ${(sleepGoal - sleptHours).clamp(0, sleepGoal)} hrs',
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -96,9 +109,9 @@ class GoalSectionCards extends StatelessWidget {
                       controller.updateSleepHours();
                     },
                     child: const Icon(Icons.add, color: Colors.blue),
-                  )
+                  ),
                 ],
-              )
+              ),
             ],
           ),
           GoalCard(
@@ -112,7 +125,9 @@ class GoalSectionCards extends StatelessWidget {
             children: [
               Text('Goal: ${waterGoal}L'),
               Text('Consumed: $waterGlasses glasses (${waterConsumed}L)'),
-              Text('Remaining: ${(waterGoal - waterConsumed).clamp(0.0, waterGoal)}L'),
+              Text(
+                'Remaining: ${(waterGoal - waterConsumed).clamp(0.0, waterGoal)}L',
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -121,9 +136,9 @@ class GoalSectionCards extends StatelessWidget {
                       controller.updateWaterIntake();
                     },
                     child: const Icon(Icons.add, color: Colors.blue),
-                  )
+                  ),
                 ],
-              )
+              ),
             ],
           ),
           GoalCard(
@@ -138,8 +153,8 @@ class GoalSectionCards extends StatelessWidget {
               Text('Goal: $bmiGoal'),
               Text('Current: $currentBMI'),
               Text('Remaining: ${(bmiGoal - currentBMI).toStringAsFixed(1)}'),
-             Text('Status:'),
-             healthCalculationController.bmiChart(),
+              Text('Status:'),
+              healthCalculationController.bmiChart(),
             ],
           ),
         ],

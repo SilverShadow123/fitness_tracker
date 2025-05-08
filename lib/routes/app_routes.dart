@@ -35,6 +35,6 @@ class AppRoutes {
 
     // Here we read the UID from Get.arguments
     GetPage(name: history, page: () => HistoryScreen(uid: Get.arguments)),
-    GetPage(name: editProfile, page:()=>EditProfileScreen()),
+    GetPage(name: editProfile, page: () => EditProfileScreen()),
   ];
 }

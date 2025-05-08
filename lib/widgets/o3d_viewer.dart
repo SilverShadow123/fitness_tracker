@@ -19,14 +19,16 @@ class O3DViewer extends StatelessWidget {
 
       // Get the gender and choose model path accordingly
       final gender = controller.gender.value;
-      final modelSrc = gender.toLowerCase() != 'male'
-          ? 'assets/3d_model/disney_style_character.glb'
-          : 'assets/3d_model/thalapathy_vijay_3d_model.glb';
+      final modelSrc =
+          gender.toLowerCase() != 'male'
+              ? 'assets/3d_model/disney_style_character.glb'
+              : 'assets/3d_model/thalapathy_vijay_3d_model.glb';
 
       // Define camera target based on gender
-      final cameraTarget = gender.toLowerCase() != 'male'
-          ? CameraTarget(-0.4, 1.5, -0.30)
-          : CameraTarget(-0.25, 1, -0.50);
+      final cameraTarget =
+          gender.toLowerCase() != 'male'
+              ? CameraTarget(-0.4, 1.5, -0.30)
+              : CameraTarget(-0.25, 1, -0.50);
 
       // Return the O3D widget with dynamic camera and model source
       return O3D(
